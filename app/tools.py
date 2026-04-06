@@ -42,4 +42,3 @@ def register_tools():
             visible=True
         )
     ]
-``
