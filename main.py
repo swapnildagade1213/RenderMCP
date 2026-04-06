@@ -1,22 +1,21 @@
 # main.py
-from fastmcp import FastMCP
-from app.tools.functions import echo, add
 
+from fastmcp import FastMCP
+from app.tools import echo, add
+
+# Create MCP server
 mcp = FastMCP("Render-MCP")
 
-@mcp.tool(
+# Register tools (FastMCP-native way)
+mcp.tool(
     name="echo",
-    description="Echo text"
-)
-def echo_tool(text: str) -> str:
-    return echo(text)
+    description="Echo text back to the caller",
+)(echo)
 
-@mcp.tool(
+mcp.tool(
     name="add",
-    description="Add two numbers"
-)
-def add_tool(a: int, b: int) -> int:
-    return add(a, b)
+    description="Add two numbers",
+)(add)
 
-# Expose FastAPI app to Render
+# Expose FastAPI app for Render
 app = mcp.fastapi_app
