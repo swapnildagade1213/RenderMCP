@@ -1,15 +1,13 @@
 from fastmcp import FastMCP
 from app.tools import register_tools
 
-mcp = FastMCP(
-    name="Render-MCP",
-    description="MCP Server running on Render using fastmcp"
-)
+# Create MCP instance – only name is allowed now
+mcp = FastMCP("Render-MCP")
 
-# Load your tools from your registry
+# Load tools
 tools = register_tools()
 
-# Register tools dynamically
+# Register tools into fastmcp
 for t in tools:
     mcp.tool(
         name=t.tool.name,
@@ -17,5 +15,5 @@ for t in tools:
         parameters=t.tool.parameters
     )(t.handler)
 
-# Start WebSocket MCP server
+# Expose FastAPI app to Render
 app = mcp.fastapi_app
