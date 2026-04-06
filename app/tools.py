@@ -1,15 +1,20 @@
 # app/tools.py
-from app.executor import AsyncToolExecutor, ToolInfo
+from app.executor import ToolInfo
+from app.tools.functions import echo, add
 
 def register_tools():
-    executor = AsyncToolExecutor()
-
     return [
         ToolInfo(
             tool={
                 "name": "echo",
                 "description": "Echo text",
-                "handler": lambda text: f"Echo: {text}",
+                "input_schema": {
+                    "type": "object",
+                    "properties": {
+                        "text": {"type": "string"}
+                    },
+                    "required": ["text"]
+                }
             },
             category="general",
             tags=["debug"],
@@ -21,7 +26,14 @@ def register_tools():
             tool={
                 "name": "add",
                 "description": "Add two numbers",
-                "handler": lambda a, b: a + b,
+                "input_schema": {
+                    "type": "object",
+                    "properties": {
+                        "a": {"type": "number"},
+                        "b": {"type": "number"}
+                    },
+                    "required": ["a", "b"]
+                }
             },
             category="general",
             tags=["math"],
@@ -30,3 +42,4 @@ def register_tools():
             visible=True
         )
     ]
+``
