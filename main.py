@@ -1,19 +1,21 @@
 from fastmcp import FastMCP
 from app.tools import echo, add
 
-# Create MCP server
 mcp = FastMCP("Render-MCP")
 
-# Register tools
-mcp.tool(
+@mcp.tool(
     name="echo",
     description="Echo text back to the caller",
-)(echo)
+)
+def echo_tool(text: str) -> str:
+    return echo(text)
 
-mcp.tool(
+@mcp.tool(
     name="add",
     description="Add two numbers",
-)(add)
+)
+def add_tool(a: int, b: int) -> int:
+    return add(a, b)
 
-# ✅ Correct property for current FastMCP
-app = mcp.app
+# ✅ ONLY correct ASGI export across versions
+app = mcp.http_app()
