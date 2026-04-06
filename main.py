@@ -10,9 +10,9 @@ tools = register_tools()
 # Register tools into fastmcp
 for t in tools:
     mcp.tool(
-        name=t.tool.name,
-        description=t.tool.description,
-        parameters=t.tool.parameters
+        name=t.tool["name"],
+        description=t.tool["description"],
+        parameters=t.tool["parameters"]
     )(t.handler)
 
 # Expose FastAPI app to Render
