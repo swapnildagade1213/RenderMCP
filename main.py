@@ -1,12 +1,10 @@
-# main.py
-
 from fastmcp import FastMCP
 from app.tools import echo, add
 
 # Create MCP server
 mcp = FastMCP("Render-MCP")
 
-# Register tools (FastMCP-native way)
+# Register tools
 mcp.tool(
     name="echo",
     description="Echo text back to the caller",
@@ -17,5 +15,5 @@ mcp.tool(
     description="Add two numbers",
 )(add)
 
-# Expose FastAPI app for Render
-app = mcp.fastapi_app
+# ✅ Correct property for current FastMCP
+app = mcp.app
