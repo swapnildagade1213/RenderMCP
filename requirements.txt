@@ -1,0 +1,6 @@
+fastmcp
+fastapi
+uvicorn[standard]
+pydantic
+python-multipart
+anyio
