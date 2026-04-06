@@ -4,16 +4,29 @@ from app.executor import AsyncToolExecutor, ToolInfo
 def register_tools():
     executor = AsyncToolExecutor()
 
-    # Example tool definitions
     return [
-        ToolInfo.from_handler(
-            name="echo",
-            description="Echo text",
-            handler=lambda text: f"Echo: {text}"
+        ToolInfo(
+            tool={
+                "name": "echo",
+                "description": "Echo text",
+                "handler": lambda text: f"Echo: {text}",
+            },
+            category="general",
+            tags=["debug"],
+            version="1.0",
+            author="system",
+            visible=True
         ),
-        ToolInfo.from_handler(
-            name="add",
-            description="Add two numbers",
-            handler=lambda a, b: a + b
+        ToolInfo(
+            tool={
+                "name": "add",
+                "description": "Add two numbers",
+                "handler": lambda a, b: a + b,
+            },
+            category="general",
+            tags=["math"],
+            version="1.0",
+            author="system",
+            visible=True
         )
     ]
