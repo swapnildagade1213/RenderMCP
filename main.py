@@ -1,23 +1,22 @@
+# main.py
 from fastmcp import FastMCP
-from app.tools import register_tools
+from app.tools.functions import echo, add
 
-# Create MCP instance – only name is allowed now
 mcp = FastMCP("Render-MCP")
 
-# Load tools
-tools = register_tools()
+@mcp.tool(
+    name="echo",
+    description="Echo text"
+)
+def echo_tool(text: str) -> str:
+    return echo(text)
 
-# Register tools into fastmcp
-for t in tools:
-    tool_kwargs = {
-        "name": t.tool["name"],
-        "description": t.tool.get("description", "")
-    }
-
-    if "parameters" in t.tool:
-        tool_kwargs["parameters"] = t.tool["parameters"]
-
-    mcp.tool(**tool_kwargs)(t.handler)
+@mcp.tool(
+    name="add",
+    description="Add two numbers"
+)
+def add_tool(a: int, b: int) -> int:
+    return add(a, b)
 
 # Expose FastAPI app to Render
 app = mcp.fastapi_app
